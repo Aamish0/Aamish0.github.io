@@ -7,16 +7,16 @@
 
 
 function setup() {
-  createCanvas(500, 500);
+  createCanvas(1905, 990);
   // create slider
-  slider = createSlider(1, 8, 1, 1);
-  slider.position(10, 10);
-  slider.size(80);
+  size = createSlider(1, 8, 1, 0.2);
+  size.position(width/2 - 55, 10);
+  size.size(80);
   
 }
 
 function draw() {
-  background(220);
+  background(50);
   draw_alien();
 }
 
@@ -24,8 +24,8 @@ function draw_alien(){
   // variables
   let centerx = width/2;
   let centery = height/2; 
-  let headSize = 2; 
-  let offset = slider.value();
+  let headSize = size.value(); 
+  let offset = 0;
 
   
   noStroke();
