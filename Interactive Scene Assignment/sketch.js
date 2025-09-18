@@ -79,7 +79,7 @@ quad(width*0.71, height*0.81, width*0.71, height*0.885, width*0.70, height*0.88,
 
 // roof back
 fill(136, 123, 88);
-triangle(width *0.70 , height * 0.78, width * 0.698, height * 0.81, width * 0.70, height * 0.81);
+quad(width *0.70 , height * 0.78, width * 0.698, height * 0.81, width * 0.9, height * 0.81, width * 0.70, height * 0.81);
 
 
 
