@@ -9,7 +9,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(225);
   
   mountain();
   coord_finder()
@@ -40,11 +40,11 @@ function mountain(){
 
 //sun
 fill(201, 214, 196);
-circle(width*0.35, height*0.08, 60);
+circle(width*0.35, height*0.08, width / 13);
 fill(238, 239, 195);
-circle(width*0.35, height*0.08, 55);
+circle(width*0.35, height*0.08, width / 14);
 fill(254, 250, 188);
-circle(width*0.35, height*0.08, 50);
+circle(width*0.35, height*0.08, width /15);
 
 
 //ground back
