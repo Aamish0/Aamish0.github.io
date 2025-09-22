@@ -2,10 +2,12 @@
 // Aamish
 // September 16, 2025
 
-
+//globals
+let cloud_distance = [70, 10];
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  
 }
 
 function draw() {
@@ -22,9 +24,44 @@ function coord_finder(){
 }
 
 function mountain(){
-  //background mountains
   noStroke()
+//sun
+fill(201, 214, 196);
+circle(width*0.35, height*0.08, width / 13);
+fill(238, 239, 195);
+circle(width*0.35, height*0.08, width / 14);
+fill(254, 250, 188);
+circle(width*0.35, height*0.08, width /15);
+
+
+  //clouds
   
+  fill(255)
+  //cloud 1
+  circle(mouseX-12, height * 0.06, 25);
+  circle(mouseX, height * 0.06, 35);
+  circle(mouseX+20, height * 0.05, 45);
+  circle(mouseX+ 42, height * 0.06, 35);
+
+  //cloud 2
+  circle(mouseX-12 - cloud_distance[0], height * 0.06 + cloud_distance[1], 25);
+  circle(mouseX - cloud_distance[0], height * 0.06 + cloud_distance[1], 35);
+  circle(mouseX+20 - cloud_distance[0], height * 0.05 + cloud_distance[1], 45);
+  circle(mouseX+ 42 - cloud_distance[0], height * 0.06 + cloud_distance[1], 35);
+
+  //cloud 3
+  circle(mouseX-8 + cloud_distance[0], height * 0.06 + cloud_distance[1], 25);
+  circle(mouseX - 4 + cloud_distance[0], height * 0.06 + cloud_distance[1], 35);
+  circle(mouseX+16 + cloud_distance[0], height * 0.05 + cloud_distance[1], 45);
+  circle(mouseX - 4+ 42 + cloud_distance[0], height * 0.06 + cloud_distance[1], 35);
+
+  //cloud 4
+  circle(mouseX, height * 0.08, 25);
+  circle(mouseX - 12, height * 0.08, 35);
+  circle(mouseX+8, height * 0.07, 45);
+  circle(mouseX+ 32, height * 0.08, 35);
+
+  //background mountains
   fill(102, 143, 172);
   triangle(width*0, height*0.47, width*0.5, height*0.47,width*0.17, height*0.03);
   triangle(width*0.43, height*0.46, width*0.48, height*0.02,width*0.72, height*0.49);
@@ -38,13 +75,7 @@ function mountain(){
   triangle(width*0.51, height*0.47, width*0.65, height*0.23,width*0.74, height*0.49);
   triangle(width*0.6, height*0.48, width*0.82, height*0.26,width*1, height*0.5);
 
-//sun
-fill(201, 214, 196);
-circle(width*0.35, height*0.08, width / 13);
-fill(238, 239, 195);
-circle(width*0.35, height*0.08, width / 14);
-fill(254, 250, 188);
-circle(width*0.35, height*0.08, width /15);
+
 
 
 //ground back
@@ -97,6 +128,8 @@ ellipse(width *0.77 , height * 0.735, width *0.01 , height * 0.07);
 //chimney
 fill(117, 102, 70);
 rect(width *0.77 , height * 0.78, width *0.01 , height * 0.03);
+
+
 
 
   fill(0)
