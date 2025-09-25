@@ -34,6 +34,14 @@ fill(254, 250, 188);
 circle(width*0.35, height*0.08, width /15);
 
 
+  
+
+  //background mountains
+  fill(102, 143, 172);
+  triangle(width*0, height*0.47, width*0.5, height*0.47,width*0.17, height*0.03);
+  triangle(width*0.43, height*0.46, width*0.48, height*0.02,width*0.72, height*0.49);
+  triangle(width*0.72, height*0.49, width*0.76, height*0.07,width*1, height*0.5);
+
   //clouds
   
   fill(255)
@@ -60,12 +68,6 @@ circle(width*0.35, height*0.08, width /15);
   circle(mouseX - 12, height * 0.08, 35);
   circle(mouseX+8, height * 0.07, 45);
   circle(mouseX+ 32, height * 0.08, 35);
-
-  //background mountains
-  fill(102, 143, 172);
-  triangle(width*0, height*0.47, width*0.5, height*0.47,width*0.17, height*0.03);
-  triangle(width*0.43, height*0.46, width*0.48, height*0.02,width*0.72, height*0.49);
-  triangle(width*0.72, height*0.49, width*0.76, height*0.07,width*1, height*0.5);
 
   //foreground mountains
   fill(128, 160, 184);
