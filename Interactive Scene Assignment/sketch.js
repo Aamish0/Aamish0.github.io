@@ -50,7 +50,7 @@ function draw() {
   moveBird();
   // coord_finder();
   state();
-  text("Made By Aamish", width * 0.9, height * 0.98)
+  text("Made By Aamish", width * 0.85, height * 0.9)
   fill(0, brightness);
   rect(0, 0, 10000, 10000);
 
