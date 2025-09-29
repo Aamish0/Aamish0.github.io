@@ -2,8 +2,6 @@
 // Aamish
 // 25 September, 2025
 
-
-
 let ball, ball2;
 
 function setup() {
@@ -26,90 +24,6 @@ function setup() {
     timeOff: 0.005
   };
 
-  ball3 = {   //object notation. Inside the brackets
-    //set up a bunch of 
-    //property:value   pairs
-x: 500,  y: 200,  size: random(20, 40),
-c: color(random(255),random(255),random(255)),
-timeX: random(100),  timeY: random(100),
-timeOff: 0.005
-};
-
-ball4 = {   //object notation. Inside the brackets
-  //set up a bunch of 
-  //property:value   pairs
-x: 500,  y: 200,  size: random(20, 40),
-c: color(random(255),random(255),random(255)),
-timeX: random(100),  timeY: random(100),
-timeOff: 0.005
-};
-
-ball5 = {   //object notation. Inside the brackets
-  //set up a bunch of 
-  //property:value   pairs
-x: 500,  y: 200,  size: random(20, 40),
-c: color(random(255),random(255),random(255)),
-timeX: random(100),  timeY: random(100),
-timeOff: 0.005
-};
-
-ball6 = {   //object notation. Inside the brackets
-  //set up a bunch of 
-  //property:value   pairs
-x: 500,  y: 200,  size: random(20, 40),
-c: color(random(255),random(255),random(255)),
-timeX: random(100),  timeY: random(100),
-timeOff: 0.005
-};
-
-ball7 = {   //object notation. Inside the brackets
-  //set up a bunch of 
-  //property:value   pairs
-x: 500,  y: 200,  size: random(20, 40),
-c: color(random(255),random(255),random(255)),
-timeX: random(100),  timeY: random(100),
-timeOff: 0.005
-};
-ball8 = {   //object notation. Inside the brackets
-  //set up a bunch of 
-  //property:value   pairs
-x: 500,  y: 200,  size: random(20, 40),
-c: color(random(255),random(255),random(255)),
-timeX: random(100),  timeY: random(100),
-timeOff: 0.005
-};
-ball9 = {   //object notation. Inside the brackets
-  //set up a bunch of 
-  //property:value   pairs
-x: 500,  y: 200,  size: random(20, 40),
-c: color(random(255),random(255),random(255)),
-timeX: random(100),  timeY: random(100),
-timeOff: 0.005
-};
-ball10 = {   //object notation. Inside the brackets
-  //set up a bunch of 
-  //property:value   pairs
-x: 500,  y: 200,  size: random(20, 40),
-c: color(random(255),random(255),random(255)),
-timeX: random(100),  timeY: random(100),
-timeOff: 0.005
-};
-ball11 = {   //object notation. Inside the brackets
-  //set up a bunch of 
-  //property:value   pairs
-x: 500,  y: 200,  size: random(20, 40),
-c: color(random(255),random(255),random(255)),
-timeX: random(100),  timeY: random(100),
-timeOff: 0.005
-};
-ball12 = {   //object notation. Inside the brackets
-  //set up a bunch of 
-  //property:value   pairs
-x: 500,  y: 200,  size: random(20, 40),
-c: color(random(255),random(255),random(255)),
-timeX: random(100),  timeY: random(100),
-timeOff: 0.005
-};
 }
 
 function draw() {
@@ -122,19 +36,6 @@ function draw() {
 
   moveBall(ball);
   moveBall(ball2);
-  moveBall(ball3);
-  moveBall(ball4);
-  moveBall(ball5);
-  moveBall(ball6);
-  moveBall(ball7);
-  moveBall(ball8);
-  moveBall(ball9);
-  moveBall(ball10);
-  moveBall(ball11);
-  moveBall(ball12);
-
-  
-  
 }
 
 function moveBall(b){
