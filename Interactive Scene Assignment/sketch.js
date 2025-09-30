@@ -5,7 +5,9 @@
 //globals
 //state var
 let worldState = 0; //0- clear-day   1- Cloudy-Day   2-Clear-Night
-let brightness = 0;
+let brightness = 0; //transparancy of a rect that covers the whole scene
+
+
 
 //cloud vars
 let cloudCount = 1;              // number of clouds
@@ -21,7 +23,7 @@ let bird2_Y_offset;
 let bird3_X_offset;
 let bird3_Y_offset;
 
-//scene color vars
+let smokePos = 0; 
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -32,12 +34,13 @@ function setup() {
   bird3_X_offset = width * 0.17 * birdSize;
   bird3_Y_offset = height * -0.1 * birdSize;
 
-
+   
 
 }
 
 function draw() {
   background(225);
+  
   sun();
   moon();
   clouds();
@@ -53,9 +56,9 @@ function draw() {
   text("Made By Aamish", width * 0.85, height * 0.9)
   fill(0, brightness);
   rect(0, 0, 10000, 10000);
-
+  // smokePos++;
 }
-
+//change bird position
 function moveBird() {
   if (keyIsDown(LEFT_ARROW)) {
 
@@ -66,6 +69,7 @@ function moveBird() {
   }
 }
 
+//find normalized screen width and height percentage
 function coord_finder() {
 
   textSize(16);
@@ -73,7 +77,7 @@ function coord_finder() {
 }
 
 
-
+//draw birds
 function birb() {
 
   fill(birdColor);
@@ -255,6 +259,8 @@ function birb3() {
   )
 }
 
+
+// draw sun and moon
 function sun() {
   let sunHeight = height * 0.08;
   if (worldState === 0) {
@@ -283,10 +289,9 @@ function moon() {
   }
 }
 
+//draw clouds if in the correct worldState
 function clouds() {
   fill(255)
-
-
 
   let spacing = width / cloudCount; // horizontal gap
   let baseY = height * 0.06;   // baseline height
@@ -305,11 +310,9 @@ function drawCloud(cx, cy) {
   circle(cx + 42, cy, 35);
 }
 
+//worldState changeer
 function mouseClicked() {
 
-  //automatically called on any keyboard button press
-  //state var:  0 → 1    1 → 2      
-  //            2 → 3 (for 2 seconds) → 0
   if (worldState < 3) {
     worldState++;
     if (worldState === 3) {
@@ -318,6 +321,7 @@ function mouseClicked() {
   }
 }
 
+//decides which worldState does what
 function state() {
   switch (worldState) {
     case 0:
@@ -336,6 +340,7 @@ function state() {
   }
 }
 
+//the base scene including the foreground and background mountains, the 3 layers of hills and the little hut
 function baseScene() {
   noStroke()
 
@@ -377,6 +382,18 @@ function baseScene() {
 
   // --- HOUSE ---//
 
+  //smoke
+  //need sto be drawn first so its behind the house
+  //smoke goes up and loops back when outside the screen
+  fill(198, 213, 214);
+  ellipse(width * 0.77, height * 0.735 + smokePos, width * 0.01, height * 0.07);
+  smokePos--;
+  let smokeCurPos = height * 0.735 + smokePos
+  if(smokeCurPos < 0 ){
+    smokePos = 35;
+  }
+
+
   //front wall
   rectMode(CENTER);
   fill(182, 170, 140);
@@ -405,9 +422,6 @@ function baseScene() {
   //door
   rect(width * 0.73, height * 0.86, width * 0.015, height * 0.05);
 
-  //smoke
-  fill(198, 213, 214);
-  ellipse(width * 0.77, height * 0.735, width * 0.01, height * 0.07);
 
   //chimney
   fill(117, 102, 70);
@@ -419,6 +433,8 @@ function baseScene() {
   fill(0)
 }
 
+
+//scales the scene with the window size dynamcally without having to refresh the page
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
