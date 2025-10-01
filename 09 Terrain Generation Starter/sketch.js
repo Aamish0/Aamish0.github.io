@@ -4,8 +4,8 @@
 
 let rectWidth = 2;
 let timeOff = 0.01;
-let xTime = 0;
-let panOffset = 0; //starting pan pos 
+
+let panOffset = 0; //A shift value for noise
 
 let x2;
 let y2;
@@ -13,12 +13,10 @@ let y2;
 let rectHeight;
 
 //position for flag
-let highestX;
-let highestY;
+let highestX, highestY;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  //for now, generate the terrain once
 
   //position for flag
   highestX = 0;
@@ -30,10 +28,26 @@ function setup() {
 }
 
 function draw() {
-  // dont need to use draw UNTIL animating the terrain
-  
-  
+  // hold arrow keys to pan over
+  let panned = false;
+
+  if (keyIsDown(LEFT_ARROW)) {
+    panOffset -= timeOff * (rectWidth * 2); // pan speed
+    panned = true;
+  }
+
+  if (keyIsDown(RIGHT_ARROW)) {
+    panOffset += timeOff * (rectWidth * 2); // pan speed
+    panned = true;
+  }
+  if (panned) { // redraw so it doesnt stack over the prevouis terrain
+    background(180);
+    generateTerrain();
+  }
+
 }
+  
+//function to draw the flag on the highest summit
 function drawFlag(x, y){
   
   line(x, y, x, y - 50);
@@ -48,10 +62,15 @@ function generateTerrain(){
   rectMode(CORNERS);
   stroke(0);
 
-  for(let x = 0; x < width; x += rectWidth){
+    highestX = 0;
+    highestY = height;
+
+  let xTime = 0; //column number
+  for(let x = 0; x < width; x += rectWidth, xTime++){
     //generate a random height.
-    rectHeight = noise(xTime + panOffset);
-    rectHeight = map(rectHeight, 0, 1, height * 0.2, height * 0.9);
+    let newX = xTime * timeOff + panOffset;
+    let n = noise(newX); // 
+    rectHeight = map(n, 0, 1, height * 0.2, height * 0.9);
 
     
     
@@ -72,29 +91,25 @@ function generateTerrain(){
     }
 
 
-    xTime += timeOff;
+   
   }
   drawFlag(highestX, highestY);
   rectMode(CORNER); // revert to default rect mode
 }
 
-
+//pan the terrain left or right by tapping or holding the left or right arrow keys
 function keyPressed(){
   if (keyCode === LEFT_ARROW){
-    panOffset -= 0.1;
-    highestX = 0;
-    highestY = height;
+    panOffset -= timeOff;
     background(180);
     generateTerrain();
-    drawFlag(highestX, highestY);
+
   }
   else if (keyCode === RIGHT_ARROW){
-    panOffset += 0.1;
-    highestX = 0;
-    highestY = height;
+    panOffset += timeOff;
     background(180);
     generateTerrain();
-    drawFlag(highestX, highestY);
+
   }
 }
 
@@ -104,4 +119,6 @@ function keyPressed(){
 //scales the scene with the window size dynamcally without having to refresh the page
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  background(180);
+  generateTerrain();
 }
