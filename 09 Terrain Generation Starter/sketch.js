@@ -1,124 +1,41 @@
-// Starter Code for our Terrain Generation Project
-// Aamish
-// September 29, 2025
+// Starter Code for our
+// Terrain Generation Project
+// Mr. SCott
+// Sept 29, 2025
 
-let rectWidth = 2;
-let timeOff = 0.01;
-
-let panOffset = 0; //A shift value for noise
-
-let x2;
-let y2;
-
-let rectHeight;
-
-//position for flag
-let highestX, highestY;
+let rectWidth = 5;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
-  //position for flag
-  highestX = 0;
-  highestY = height;
-
-  background(180);
+  //for now, generate the terrain once
   generateTerrain();
-  
 }
-
-function draw() {
-  // hold arrow keys to pan over
-  let panned = false;
-
-  if (keyIsDown(LEFT_ARROW)) {
-    panOffset -= timeOff * (rectWidth * 2); // pan speed
-    panned = true;
-  }
-
-  if (keyIsDown(RIGHT_ARROW)) {
-    panOffset += timeOff * (rectWidth * 2); // pan speed
-    panned = true;
-  }
-  if (panned) { // redraw so it doesnt stack over the prevouis terrain
-    background(180);
-    generateTerrain();
-  }
-
-}
-  
-//function to draw the flag on the highest summit
-function drawFlag(x, y){
-  
-  line(x, y, x, y - 50);
-  triangle(x, y - 50, x , y - 25, x + 25, y - 35);
- 
-}
-
 
 function generateTerrain(){
-  //Use a loop to generate and draw several rectangles side to side 
-  //to look like 2D terrain
+  // Use a loop to generate and draw several
+  // rectangles side to side to look like 2D 
+  // terrain.
   rectMode(CORNERS);
-  stroke(0);
 
-    highestX = 0;
-    highestY = height;
+  for(let x = 0; x < width; x+=rectWidth){
+    // generate a random height.
+    // NOTE!! change this from random() to noise()
+    let rectHeight = random(50, 500);
 
-  let xTime = 0; //column number
-  for(let x = 0; x < width; x += rectWidth, xTime++){
-    //generate a random height.
-    let newX = xTime * timeOff + panOffset;
-    let n = noise(newX); // 
-    rectHeight = map(n, 0, 1, height * 0.2, height * 0.9);
-
-    
-    
-    
-    //calculate the coordinates upper-right corner of the rect
-    x2 = x + rectWidth;
-
-    y2 = height - rectHeight; 
+    // calculate the upper-right corner of rect
+    let x2 = x + rectWidth;
+    let y2 = height - rectHeight;
 
     rect(x, height, x2, y2);
 
-    
-
-    if (y2 < highestY){
-      highestY = y2
-      highestX = x
-      
-    }
-
-
-   
   }
-  drawFlag(highestX, highestY);
-  rectMode(CORNER); // revert to default rect mode
+
+  rectMode(CORNER);  //revert to default
 }
 
-//pan the terrain left or right by tapping or holding the left or right arrow keys
-function keyPressed(){
-  if (keyCode === LEFT_ARROW){
-    panOffset -= timeOff;
-    background(180);
-    generateTerrain();
+function draw() {
+  // don't need to use draw UNTIL
+  // animating the terrain (panning)
 
-  }
-  else if (keyCode === RIGHT_ARROW){
-    panOffset += timeOff;
-    background(180);
-    generateTerrain();
-
-  }
-}
-
-
-
-
-//scales the scene with the window size dynamcally without having to refresh the page
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
-  background(180);
-  generateTerrain();
+  // background(220);
 }
