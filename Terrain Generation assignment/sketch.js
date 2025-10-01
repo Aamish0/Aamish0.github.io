@@ -12,6 +12,8 @@ let y2;
 
 let rectHeight;
 
+let avgY = 0;
+
 //position for flag
 let highestX, highestY;
 
@@ -32,7 +34,7 @@ function draw() {
   let panned = false;
 
   if (keyIsDown(LEFT_ARROW)) {
-    panOffset -= timeOff * (rectWidth * 2); // pan speed
+    panOffset -= timeOff * (rectWidth * 4); // pan speed
     panned = true;
   }
 
@@ -49,7 +51,7 @@ function draw() {
   
 //function to draw the flag on the highest summit
 function drawFlag(x, y){
-  
+  stroke('black');
   line(x, y, x, y - 50);
   triangle(x, y - 50, x , y - 25, x + 25, y - 35);
  
@@ -60,7 +62,7 @@ function generateTerrain(){
   //Use a loop to generate and draw several rectangles side to side 
   //to look like 2D terrain
   rectMode(CORNERS);
-  stroke(0);
+  let totalRects = 0;
 
     highestX = 0;
     highestY = height;
@@ -68,6 +70,8 @@ function generateTerrain(){
   let xTime = 0; //column number
   for(let x = 0; x < width; x += rectWidth, xTime++){
     //generate a random height.
+    
+
     let newX = xTime * timeOff + panOffset;
     let n = noise(newX); // 
     rectHeight = map(n, 0, 1, height * 0.2, height * 0.9);
@@ -79,7 +83,7 @@ function generateTerrain(){
     x2 = x + rectWidth;
 
     y2 = height - rectHeight; 
-
+    stroke('black');
     rect(x, height, x2, y2);
 
     
@@ -90,9 +94,17 @@ function generateTerrain(){
       
     }
 
+    avgY += y2;
+    
+    stroke('red');
+    
 
-   
+    print(avgY);
+    totalRects++;
   }
+  avgY = avgY/totalRects;
+  line(0, avgY, width, avgY);
+
   drawFlag(highestX, highestY);
   rectMode(CORNER); // revert to default rect mode
 }
