@@ -63,3 +63,11 @@ function moveBall(b){
   fill(b.c);
   circle(b.x, b.y, b.size);
 }
+
+
+
+
+//scales the scene with the window size dynamcally without having to refresh the page
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}
