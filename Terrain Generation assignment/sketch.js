@@ -2,7 +2,7 @@
 // Aamish
 // September 29, 2025
 
-let rectWidth = 2;
+let rectWidth = 10;
 let timeOff = 0.01;
 
 let panOffset = 0; //A shift value for noise
@@ -29,17 +29,22 @@ function setup() {
   
 }
 
+
+
+
 function draw() {
+
+
   // hold arrow keys to pan over
   let panned = false;
 
   if (keyIsDown(LEFT_ARROW)) {
-    panOffset -= timeOff * (rectWidth * 4); // pan speed
+    panOffset -= timeOff * rectWidth ; // pan speed
     panned = true;
   }
 
   if (keyIsDown(RIGHT_ARROW)) {
-    panOffset += timeOff * (rectWidth * 2); // pan speed
+    panOffset += timeOff * rectWidth; // pan speed
     panned = true;
   }
   if (panned) { // redraw so it doesnt stack over the prevouis terrain
@@ -94,16 +99,16 @@ function generateTerrain(){
       
     }
 
-    avgY += y2;
+    avgY += y2; //calculate avg y by adding all the heights of the rects with each draw
     
     stroke('red');
     
 
-    print(avgY);
+    
     totalRects++;
   }
   avgY = avgY/totalRects;
-  line(0, avgY, width, avgY);
+  line(0, avgY, width, avgY); // draw the avg line
 
   drawFlag(highestX, highestY);
   rectMode(CORNER); // revert to default rect mode
@@ -111,20 +116,35 @@ function generateTerrain(){
 
 //pan the terrain left or right by tapping or holding the left or right arrow keys
 function keyPressed(){
-  if (keyCode === LEFT_ARROW){
+  if(keyCode === 100 && rectWidth >= 2){
+    rectWidth -= 1;
+    background(180);
+    generateTerrain();
+  }
+
+  else if(keyCode === 102 && rectWidth <= 25){
+    rectWidth += 1;
+    background(180);
+    generateTerrain();
+  }
+
+  else if (keyCode === LEFT_ARROW){
     panOffset -= timeOff;
     background(180);
     generateTerrain();
+
 
   }
   else if (keyCode === RIGHT_ARROW){
     panOffset += timeOff;
     background(180);
     generateTerrain();
+   
 
   }
 }
-
+// if (keyIsPressed && keyCode === SHIFT){
+//   rectWidth -= 1;
 
 
 
