@@ -40,7 +40,7 @@ class csNode{
 
     //properties related to movement
     this.xTime = random(10);    this.yTime = random(10);
-    this.timeShift = 0.01; this.maxSpeed = 15;
+    this.timeShift = 0.01; this.maxSpeed = 5;
 
 
   }
