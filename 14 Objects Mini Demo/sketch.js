@@ -48,6 +48,6 @@ class Ball {
   move(){
     //horizontal movement only
     this.x += this.speed;
-    if(this.x > width) this.x = 0;
+    if(this.x > width) this.x = 0;   
   }
 }
