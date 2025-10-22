@@ -3,10 +3,9 @@
 // October 20, 2025
 
 ///Globals
-let westbound = [] 
+let westbound = []
 let eastbound = []
 let trafficLight
-let car
 let seed;
 
 function setup() {
@@ -35,7 +34,7 @@ function setup() {
 function draw() {
   background(220)
   drawRoad()
-  
+
   trafficLight.display()
   trafficLight.update()
 
@@ -84,33 +83,33 @@ function drawRoad() {
   fill('yellow')
   let yellowLineSpace = 12
   for (let i = 0; i < width; i += yellowLineSpace * 2) {
-    rect(i, height / 2 - 2, i + yellowLineSpace  + 5  , height / 2 + 2)
+    rect(i, height / 2 - 2, i + yellowLineSpace + 5, height / 2 + 2)
   }
 }
 
 function drawBushes(count) {
   noStroke()
   randomSeed(seed);
-  for (let i = 0; i < count; i++) { 
+  for (let i = 0; i < count; i++) {
     let x = random(width)
     let y = random(height * 0.1)
 
     // random size and color variation
     let size = random(20, 50)
     fill(30, random(90, 130), 16)
-    circle(x, y, size, size * 0.8)
-    circle(x + random(-10, 10), y + random(-10, 10), size * 0.8, size * 0.6)
+    circle(x, y, size * 0.8)
+    circle(x + random(-10, 10), y + random(-10, 10), size * 0.6)
   }
 
-  for (let i = 0; i < count; i++) { 
+  for (let i = 0; i < count; i++) {
     let x = random(width)
     let y = random(height - height * 0.1, height)
 
     // random size and color variation
     let size = random(20, 50)
     fill(30, random(90, 130), 16)
-    circle(x, y, size, size * 0.8)
-    circle(x + random(-10, 10), y + random(-10, 10), size * 0.8, size * 0.6)
+    circle(x, y, size * 0.8)
+    circle(x + random(-10, 10), y + random(-10, 10), size * 0.6)
   }
 }
 
@@ -121,32 +120,49 @@ class Vehicle {
     this.type = round(random(0, 1))
     this.c = color(random(255), random(255), random(255))
     this.dir;
-    this.xSpeed = 0
-  }
+    this.xSpeed;
+    this.turn;
 
+}
+  
   drawCar() {
+    push();
     rectMode(CENTER)
     fill(0)
     rect(this.x - 16, this.y, 10, 43)
     rect(this.x + 16, this.y, 10, 43)
     fill(this.c)
     rect(this.x, this.y, 50, 35)
+    pop();
   }
 
   drawTruck() {
     rectMode(CENTER)
+    //decide where to draw the front of truck
+    if(this.dir === 0){
+      this.turn = 1;
+    }
+    if(this.dir === 1){
+      this.turn = -1;
+    }
+
     fill(0)
     rect(this.x - 22, this.y, 10, 48)
     rect(this.x + 22, this.y, 10, 48)
     fill(this.c)
     rect(this.x, this.y, 70, 40)
     stroke(5)
-    line(this.x - 15, this.y - 20, this.x - 15, this.y + 20)
+    // if(this.dir === 0){
+    line(this.x - (15*this.turn), this.y - 20, this.x - (15*this.turn), this.y + 20);
+    // }
+    // if(this.dir === 1){
+    //   line(this.x - (-15), this.y - 20, this.x - (-15), this.y + 20)
+    //   }
     noStroke()
   }
 
   display() {
-    if (this.type === 0) {
+    if (this.type) {
       this.drawCar()
     } else {
       this.drawTruck()
@@ -187,6 +203,7 @@ class Vehicle {
 
   action(light) {
     // only move if green
+    randomSeed();
     if (light.state === 'green') {
       this.move()
       if (random(1) < 0.01) {
@@ -197,6 +214,8 @@ class Vehicle {
       }
       if (random(1) < 0.01) {
         this.changeColor()
+
+
       }
     }
     this.display()
@@ -213,22 +232,22 @@ class TrafficLight {
   }
 
   display() {
-    
+
     fill(0)
     rect(this.x - 80, this.y - 25, this.x + 80, this.y + 25, 10)
 
     if (this.state === 'green') {
-      
+
       fill('lime')
       circle(this.x + 40, this.y, 40)
-    
+
       fill(100)
       circle(this.x - 40, this.y, 40)
     } else {
-      
+
       fill('red')
       circle(this.x - 40, this.y, 40)
-     
+
       fill(100)
       circle(this.x + 40, this.y, 40)
     }
@@ -237,7 +256,7 @@ class TrafficLight {
   turnRed() {
     if (this.state === 'green') {
       this.state = 'red'
-      this.timer = 120
+      this.timer = 60
     }
   }
 
