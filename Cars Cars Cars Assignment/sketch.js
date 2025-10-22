@@ -82,9 +82,9 @@ function drawRoad() {
   rect(0, height * 0.1, width, height - height * 0.1)
 
   fill('yellow')
-  let yellowLineSpace = 50
+  let yellowLineSpace = 12
   for (let i = 0; i < width; i += yellowLineSpace * 2) {
-    rect(i, height / 2 - 5, i + yellowLineSpace, height / 2 + 5)
+    rect(i, height / 2 - 2, i + yellowLineSpace  + 5  , height / 2 + 2)
   }
 }
 
