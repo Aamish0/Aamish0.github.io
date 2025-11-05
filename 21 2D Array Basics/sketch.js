@@ -8,7 +8,7 @@
 //Globals
 
 let rndclr = [0, 255];
-let count = 0;
+
 let maxSquares;
 
 
@@ -23,24 +23,8 @@ let squareSize = 80;
 function setup() {
   // createCanvas(cols*squareSize, rows*squareSize);
   createCanvas(windowWidth, windowHeight);
+  randomizeBoard()
 
-  grid = [
-      [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
-      [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
-      [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
-      [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
-      [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
-      [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
-      [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
-      [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)]
-      
-      
-    
-    ];
-
-    rows = grid.length;
-    cols = grid[0].length;
-    maxSquares = rows * cols;
   
 }
 
@@ -48,7 +32,28 @@ function draw() {
   background(31);
   renderGrid();
   checkWin()
-  print(getCurrentY(), getCurrentX());
+  // print(getCurrentY(), getCurrentX());
+}
+
+function randomizeBoard(){
+  // grid = [
+  //   [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
+  //   [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
+  //   [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
+  //   [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
+  //   [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
+  //   [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
+  //   [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)],
+  //   [random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)]
+  // ];
+
+  for(let i = 0; i < 10; i++){
+    grid.push([random(rndclr),       random(rndclr),    random(rndclr),  random(rndclr), random(rndclr),    random(rndclr),  random(rndclr),       random(rndclr)]);
+  }
+
+  rows = grid.length;
+  cols = grid[0].length;
+  maxSquares = rows * cols;
 }
 
 
@@ -67,6 +72,9 @@ function renderGrid(){
 }
 
 function mousePressed(){
+  //check for win
+  
+
   //flip current tile 
   //upgrade: only do this if mouse is on canvas
   
@@ -87,6 +95,7 @@ function mousePressed(){
     flip(x, y);
   }
   else{
+    flip(x, y);
     if(x + 1 < cols) flip(x + 1, y);
     if(y - 1 >= 0) flip(x, y - 1);
     if(x - 1 >= 0) flip(x - 1, y);
@@ -113,15 +122,19 @@ function getCurrentY(){
 }
 
 function checkWin(){
+  let count = 0;
   for(let x = 0; x < cols; x++){
     for(let y = 0; y < rows; y++){
-      if(grid.grid[y][x] === 0){
+      if(grid[y][x] === 0){
         count++
-        if(count = max){
-          print("win");
+        if(count === maxSquares){
+          textSize(50);
+          fill("lime");
+          text("YOU WON", width/2, height/2);
         }
       }
     }
   }
+ 
  }
 
