@@ -14,7 +14,7 @@ let maxSquares;
 let flipMode = "cross"; //or square
 
 let grid = [];
-let gridSize = 8;
+let gridSize = 4;
 
 let canFlipSquare = false;
 let rows;
