@@ -14,7 +14,7 @@ let maxSquares;
 let flipMode = "cross"; //or square
 
 let grid = [];
-let gridSize = 4;
+let gridSize = 8;
 
 let canFlipSquare = false;
 let rows;
@@ -40,11 +40,14 @@ function setup() {
 function draw() {
   background(31);
   renderGrid();
-  checkWin()
-  flipWarning()
+  showHoverOverlay();
+  checkWin();
+  flipWarning();
 
 }
 
+
+//randomizes the pattern everytime the game starts
 function randomizeBoard(size) {
   grid = [];
 
@@ -59,6 +62,7 @@ function randomizeBoard(size) {
   rows = cols = size;
   maxSquares = rows * cols;
 }
+
 
 function renderGrid(){
   // interpret the information in  the 2D array, 
@@ -76,6 +80,7 @@ function renderGrid(){
   }
 }
 
+//changes the tile-flip mode between 'cross' and 'square' and sets a 2s timer for a warning if cant change mod
 function keyPressed(){
   if (key === ' ') {
     if (flipMode === "cross" && canFlipSquare) {
@@ -88,6 +93,7 @@ function keyPressed(){
   }
 }
 
+//lets you know if grid is too small for a 3x3 square flip
 function flipWarning(){
     if (warningTimer > 0) {
     warningTimer--;
@@ -163,21 +169,79 @@ function getCurrentY(){
   return floor(constrainedY / squareSize);
 }
 
-function checkWin(){
-  let count = 0;
-  for(let x = 0; x < cols; x++){
-    for(let y = 0; y < rows; y++){
-      if(grid[y][x] === 0){
-        count++
-        if(count === maxSquares){
-          textAlign(CENTER, CENTER);
-          fill('lime');
-          textSize(50);
-          text("YOU WON!", width / 2, height / 2);
+
+//checks if all tiles are flipped are the same color and says 'you win' if they are
+function checkWin() {
+  let allBlack = true;
+  let allWhite = true;
+
+  for (let y = 0; y < rows; y++) {
+    for (let x = 0; x < cols; x++) {
+      if (grid[y][x] !== 0) allBlack = false;
+      if (grid[y][x] !== 255) allWhite = false;
+    }
+  }
+
+  if (allBlack || allWhite) {
+    textAlign(CENTER, CENTER);
+    fill('lime');
+    textSize(50);
+    text("YOU WON!", width / 2, height / 2);
+  }
+}
+
+
+ //shows a colored overlay to indicate which rectangles will be impacted on a click
+function showHoverOverlay() {
+  let x = getCurrentX();
+  let y = getCurrentY();
+
+  noStroke();
+  fill(0, 255, 0, 100); // translucent green overlay
+
+  let gridWidth = cols * squareSize;
+  let gridHeight = rows * squareSize;
+  let startX = (width - gridWidth) / 2;
+  let startY = (height - gridHeight) / 2;
+
+  // Always highlight the main clicked square
+  // If Shift is held, only show the hovered square
+  if (keyIsDown(SHIFT)) {
+    rect(startX + x * squareSize, startY + y * squareSize, squareSize, squareSize);
+  }
+  else{
+    rect(startX + x * squareSize, startY + y * squareSize, squareSize, squareSize);
+    if (flipMode === "cross") {
+      let offsets = [
+        [1, 0],
+        [-1, 0],
+        [0, 1],
+        [0, -1]
+      ];
+
+      for (let i = 0; i < offsets.length; i++) {
+        let dx = offsets[i][0];
+        let dy = offsets[i][1];
+
+        let nx = x + dx;
+        let ny = y + dy;
+
+        if (nx >= 0 && nx < cols && ny >= 0 && ny < rows) {
+          rect(startX + nx * squareSize, startY + ny * squareSize, squareSize, squareSize);
+        }
+      }
+    }
+
+    else if (flipMode === "square") {
+      for (let i = -1; i <= 1; i++) {
+        for (let j = -1; j <= 1; j++) {
+          let nx = x + j;
+          let ny = y + i;
+          if (nx >= 0 && nx < cols && ny >= 0 && ny < rows) {
+            rect(startX + nx * squareSize, startY + ny * squareSize, squareSize, squareSize);
+          }
         }
       }
     }
   }
- 
- }
-
+}
