@@ -196,7 +196,7 @@ function showHoverOverlay() {
   let x = getCurrentX();
   let y = getCurrentY();
 
-  noStroke();
+
   fill(0, 255, 0, 100); // translucent green overlay
 
   let gridWidth = cols * squareSize;
