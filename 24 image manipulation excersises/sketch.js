@@ -2,13 +2,16 @@
 // Aamish
 // November 14, 2025
 
-let myImage
-let nuit
+let myImage;
+let nuit;
+let hand;
+
 async function setup() {
   createCanvas(600, 600);
   pixelDensity(1);
-  myImage = loadImage("assets/chip.jpg");
+  chip = loadImage("assets/chip.jpg");
   nuit = loadImage("assets/nuit.jpg");
+  hand = loadImage("assets/hand.jpg");
 } 
 
 // for each pixel, remove the red component (set to 0);
@@ -22,6 +25,36 @@ function colorEffect(){
     pixels[i+2] = pixels[i+2] / 2    //B
   }
 }
+
+function rgbWinner() {
+  for (let i = 0; i < pixels.length; i += 4) {
+    let r = pixels[i];
+    let g = pixels[i + 1];
+    let b = pixels[i + 2];
+
+
+    let winner;
+
+    // Check ties and max
+    if (r >= g && r >= b) {
+      winner = "r";
+    } else if (g >= b) {
+      winner = "g";
+    } else {
+      winner = "b";
+    }
+
+    // Apply winning color
+    if (winner === "r") {
+      pixels[i] = 255; pixels[i+1] = 0;   pixels[i+2] = 0;
+    } else if (winner === "g") {
+      pixels[i] = 0;   pixels[i+1] = 255; pixels[i+2] = 0;
+    } else {
+      pixels[i] = 0;   pixels[i+1] = 0;   pixels[i+2] = 255;
+    }
+  }
+}
+
 
 function noGreen(){
   for(let i = 0; i < pixels.length; i += 4){
@@ -80,14 +113,36 @@ function posterize(){
   }
 }
 
+function mirror() {
+
+  for (let y = 0; y < height; y++) {
+    for (let x = width/2; x < width; x++) {
+
+      let i = (y * width + x) * 4;
+
+      let mirrorX = width - 1 - x; 
+      let mirrorPixelIndex = (y * width + mirrorX) * 4;
+
+      pixels[mirrorPixelIndex]   = pixels[i];     // R
+      pixels[mirrorPixelIndex+1] = pixels[i+1];   // G
+      pixels[mirrorPixelIndex+2] = pixels[i+2];   // B
+      pixels[mirrorPixelIndex+3] = pixels[i+3];   // A
+    }
+  }
+}
+
+
+
 function draw() {
   background(220);
-  image(nuit, 0, 0);
+  image(hand, 0, 0);
   loadPixels(); // populate the pixels array
   
-  // colorEffect();// replace with each different excercise
+  // colorEffect();
   // noGreen()
-  posterize();
+  // posterize();
+  // rgbWinner();
+  mirror();
 
 
   updatePixels();
