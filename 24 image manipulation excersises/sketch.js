@@ -126,7 +126,7 @@ function mirror() {
       pixels[mirrorPixelIndex]   = pixels[i];     // R
       pixels[mirrorPixelIndex+1] = pixels[i+1];   // G
       pixels[mirrorPixelIndex+2] = pixels[i+2];   // B
-      pixels[mirrorPixelIndex+3] = pixels[i+3];   // A
+      
     }
   }
 }
